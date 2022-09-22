@@ -1,4 +1,8 @@
 #!/bin/sh
+# This script was downloaded from the binaries directory for 1.31.0 at
+# https://busybox.net/downloads/binaries/1.31.0-defconfig-multiarch-musl/
+# there was no licensed attached so I'm assuming it's released in the
+# public domain.
 
 make_defconfig()
 {
