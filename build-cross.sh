@@ -33,6 +33,8 @@ make_defconfig()
 	# No idea what's the difference, but my router wants MIPS32.
 	##sed 's/^.*CONFIG_EXTRA_CFLAGS.*$/CONFIG_EXTRA_CFLAGS="-mips32"/' -i .config
 
+	sed 's/^.*CONFIG_FEATURE_MOUNT_HELPERS.*$/CONFIG_FEATURE_MOUNT_HELPERS=y/' -i .config
+
 	# These won't build because of toolchain/libc breakage:
 	##sed 's/^.*CONFIG_FEATURE_INETD_RPC.*$/# CONFIG_FEATURE_INETD_RPC is not set/' -i .config
 	# no syncfs() on armv4l, sparc
