@@ -8,7 +8,7 @@ if [ -z "$TAG" ]; then
 	exit 1
 fi
 
-wget http://musl.cc/x86_64-linux-musl-cross.tgz
+wget https://musl.cc/x86_64-linux-musl-cross.tgz
 tar xf x86_64-linux-musl-cross.tgz
 
 export PATH="x86_64-linux-musl-cross/bin:$PATH"
