@@ -20,11 +20,15 @@ jobs:
           repository: mirror/busybox
           ref: ${{ inputs.tag }}
           path: busybox
+      - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
           apk add make
       - name: Build
         run: |
+          echo "Hello debugging ..."
+          pwd
+          ls ../
           ./build-docker.sh x86_64
       - name: Create release
         uses: actions/create-release@v1
