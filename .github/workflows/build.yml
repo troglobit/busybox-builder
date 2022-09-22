@@ -1,0 +1,37 @@
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Busybox tag to build'
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build v${{ inputs.tag }}
+        run: |
+          ./do ${{ inputs.tag }}
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ inputs.tag }}
+          release_name: BusyBox Binaries v${{ github.ref }}
+          body: |
+            Release Notes
+            =============
+            Binaries for BusyBox v${{ inputs.tag }}.<br/><br/>
+            Please note, these builds are not sponsored by or affiliated with the BusyBox project.
+          draft: false
+          prerelease: false
+      - name: Uploading artifacts
+        uses: pyTooling/Actions/releaser@main
+        with:
+          tag: ${{ inputs.tag }}
+          rm: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: output/*
