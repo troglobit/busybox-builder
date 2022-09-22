@@ -26,9 +26,11 @@ jobs:
           apk add make
       - name: Build
         run: |
-          echo "Hello debugging ..."
+          set -x
           pwd
           ls ../
+          echo "------------------------"
+          ls
           ./build-docker.sh x86_64
       - name: Create release
         uses: actions/create-release@v1
