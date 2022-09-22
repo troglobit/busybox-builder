@@ -72,7 +72,8 @@ for cross; do
 done
 wait
 
-for bb in *; do
+mkdir -p output
+for bb in busybox-*; do
 	test -d "$bb" || continue
 	test "$bb" = "busybox" && continue
 	test -x "$bb/busybox" || {
@@ -81,6 +82,6 @@ for bb in *; do
 	}
 	arch="${bb#busybox-}"
 	arch="${arch%%-*}"
-	cp "$bb/busybox"   "busybox-$arch"
-	cp "$bb/BUILD.log" "busybox-$arch.log"
+	cp -v "$bb/busybox"   "output/busybox-$arch"
+	cp -v "$bb/BUILD.log" "output/busybox-$arch.log"
 done
