@@ -27,8 +27,10 @@ jobs:
       - name: Build
         run: |
           set -x
-          pwd
+          echo "$(pwd)/.. ------------------------"
           ls ../
+          echo "$$GITHUB_WORKSPACE ------------------------"
+          ls -l $GITHUB_WORKSPACE
           echo "------------------------"
           ls
           ./build-docker.sh x86_64
