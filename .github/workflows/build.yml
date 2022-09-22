@@ -1,8 +1,10 @@
+name: BusyBox Release Builder
+
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Busybox tag to build'
+        description: 'BusyBox tag to build'
         required: true
         type: string
 
