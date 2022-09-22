@@ -10,12 +10,22 @@ on:
 
 jobs:
   build:
+    name: BusyBox v${{ inputs.tag }} x86_64
     runs-on: ubuntu-latest
+    container: muslcc/x86_64:x86_64-linux-musl
     steps:
-      - uses: actions/checkout@v2
-      - name: Build v${{ inputs.tag }}
+      - name: Checkout BusyBox
+        uses: actions/checkout@v2
+        with:
+          repository: mirror/busybox
+          ref: ${{ inputs.tag }}
+          path: busybox
+      - name: Install dependencies
         run: |
-          ./do ${{ inputs.tag }}
+          apk add make
+      - name: Build
+        run: |
+          ./build-docker.sh x86_64
       - name: Create release
         uses: actions/create-release@v1
         env:
