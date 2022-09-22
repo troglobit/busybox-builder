@@ -49,7 +49,8 @@ mkdir -p output
 make_defconfig $1 >BUILD.log 2>&1
 
 if [ ! -x "busybox/busybox" ]; then
-	echo "Failed building 'busybox' executable, check BUILD.log"
+	echo "Failed building 'busybox' executable, check BUILD.log below:"
+	cat BUILD.log
 	exit 1
 fi
 
