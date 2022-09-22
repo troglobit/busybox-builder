@@ -54,4 +54,4 @@ jobs:
           tag: ${{ inputs.tag }}
           rm: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          files: output/*
+          files: $GITHUB_WORKSPACE/output/*

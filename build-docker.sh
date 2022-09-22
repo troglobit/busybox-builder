@@ -1,17 +1,19 @@
 #!/bin/sh
 # This script is based on build-cross.sh from BusyBox, see comment in
 # that file.  Like everything here it's released in the public domain.
+BB=$GITHUB_WORKSPACE/busybox
+OUT=$GITHUB_WORKSPACE/output
 
 make_defconfig()
 {
 	arch=$1
 
-	test -d busybox || {
-		echo "busybox/ does not exist or is not a directory"
+	test -d "$BB" || {
+		echo "$BB/ does not exist or is not a directory"
 		return 1
 	}
 
-	cd busybox/ || exit $?
+	cd "$BB/" || exit $?
 
 	make defconfig >/dev/null || {
 		make defconfig # no redirects, to see all messages in log
@@ -45,16 +47,16 @@ make_defconfig()
 	cd ..
 }
 
-mkdir -p output
+mkdir -p "$OUT"
 make_defconfig $1 >BUILD.log 2>&1
 
-if [ ! -x "busybox/busybox" ]; then
+if [ ! -x "$BB/busybox" ]; then
 	echo "Failed building 'busybox' executable, check BUILD.log below:"
 	cat BUILD.log
 	exit 1
 fi
 
-cp -v "busybox/busybox" "../output/busybox-$arch"
-cp -v "BUILD.log"       "../output/busybox-$arch.log"
+cp -v "$BB/busybox" "$OUT/busybox-$arch"
+cp -v "BUILD.log"   "$OUT/busybox-$arch.log"
 
 exit 0
