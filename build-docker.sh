@@ -21,7 +21,7 @@ make_defconfig()
 	}
 
 	# Set cross-compiler
-	sed 's/^CONFIG_CROSS_COMPILER_PREFIX=".*$/CONFIG_CROSS_COMPILER_PREFIX="'"$1"'"/' -i .config
+	#sed 's/^CONFIG_CROSS_COMPILER_PREFIX=".*$/CONFIG_CROSS_COMPILER_PREFIX="'"$1"'"/' -i .config
 
 	# Want static build
 	sed 's/^.*CONFIG_STATIC.*$/CONFIG_STATIC=y/' -i .config
