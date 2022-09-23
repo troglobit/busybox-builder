@@ -27,9 +27,11 @@ jobs:
       - name: Build
         run: |
           set -x
+          echo "find /__w/ -----------------------"
+          find /__w/
           echo "$(pwd)/.. ------------------------"
           ls ../
-          echo "$$GITHUB_WORKSPACE ------------------------"
+          echo "${GITHUB_WORKSPACE} ------------------------"
           ls -l $GITHUB_WORKSPACE
           echo "------------------------"
           ls
