@@ -26,9 +26,8 @@ jobs:
       - name: Install dependencies
         run: |
           apk add make
-      - name: Build
+      - name: Build x86_64
         run: |
-          ls -la
           ./build-docker.sh x86_64
       - name: Create release
         uses: actions/create-release@v1
@@ -40,7 +39,7 @@ jobs:
           body: |
             Release Notes
             =============
-            Binaries for BusyBox v${{ inputs.tag }}.<br/><br/>
+            Binaries for BusyBox v${{ inputs.tag }}.<br/>
             Please note, these builds are not sponsored by or affiliated with the BusyBox project.
           draft: false
           prerelease: false
@@ -50,4 +49,4 @@ jobs:
           tag: ${{ inputs.tag }}
           rm: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          files: $GITHUB_WORKSPACE/output/*
+          files: output/*
