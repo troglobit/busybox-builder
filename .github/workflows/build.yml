@@ -20,6 +20,10 @@ jobs:
           repository: mirror/busybox
           ref: ${{ inputs.tag }}
           path: busybox
+      - name: Debug first checkout
+        run: |
+          echo "find /__w/ -----------------------"
+          find /__w/
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
