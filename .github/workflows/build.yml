@@ -14,31 +14,21 @@ jobs:
     runs-on: ubuntu-latest
     container: muslcc/x86_64:x86_64-linux-musl
     steps:
-      - name: Checkout BusyBox
+      - name: Check out Builder
+        uses: actions/checkout@v2
+      - name: Check out BusyBox
         uses: actions/checkout@v2
         with:
           repository: mirror/busybox
           ref: ${{ inputs.tag }}
           path: busybox
-      - name: Debug first checkout
-        run: |
-          echo "find /__w/ -----------------------"
-          find /__w/
-      - uses: actions/checkout@v2
+          clean: false
       - name: Install dependencies
         run: |
           apk add make
       - name: Build
         run: |
-          set -x
-          echo "find /__w/ -----------------------"
-          find /__w/
-          echo "$(pwd)/.. ------------------------"
-          ls ../
-          echo "${GITHUB_WORKSPACE} ------------------------"
-          ls -l $GITHUB_WORKSPACE
-          echo "------------------------"
-          ls
+          ls -la
           ./build-docker.sh x86_64
       - name: Create release
         uses: actions/create-release@v1
