@@ -7,14 +7,39 @@ on:
         description: 'BusyBox tag to build'
         required: true
         type: string
+      release:
+        description: 'Create release (false = already exists)?'
+        required: false
+        type: bool
+        default: true
 
 env:
   MIRROR:  https://github.com/troglobit/misc/releases/download
   VERSION: 11-20211120
 
 jobs:
+  release:
+    name: Create GitHub release
+    steps:
+      - name: Create release
+        if: ${{ inputs.release }}
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ inputs.tag }}
+          release_name: BusyBox Binaries v${{ inputs.tag }}
+          body: |
+            Release Notes
+            =============
+            Binaries for BusyBox v${{ inputs.tag }}.<br/>
+            Please note, these builds are not sponsored by or affiliated with the BusyBox project.
+          draft: false
+          prerelease: false
+
   build:
     name: BusyBox v${{ inputs.tag }} ${{ matrix.cross }}cross
+    needs: release
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -39,3 +64,10 @@ jobs:
         run: |
           export PATH=$(pwd)/${{ matrix.cross }}cross/bin:$PATH
           ./build-cross.sh ${{ matrix.cross }}
+      - name: Uploading artifacts
+        uses: pyTooling/Actions/releaser@main
+        with:
+          tag: ${{ inputs.tag }}
+          rm: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: output/*
