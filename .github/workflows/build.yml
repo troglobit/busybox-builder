@@ -32,13 +32,10 @@ jobs:
           clean: false
       - name: Install dependencies
         run: |
-          set -x
-          TOOLCHAIN=${{ matrix.cross }}cross
-          ARCHIVE=${TOOLCHAIN}.tgz
+          ARCHIVE=${{ matrix.cross }}cross.tgz
           wget ${MIRROR}/${VERSION}/${ARCHIVE}
           tar xf ${ARCHIVE}
       - name: Build ${{ matrix.arch }}
         run: |
           export PATH=$(pwd)/${{ matrix.cross }}cross/bin:$PATH
-          ls -l $(pwd)/${{ matrix.cross }}cross/bin
-          ./build-cross.sh ${{ matrix.cross }}; cat busybox/BUILD.log
+          ./build-cross.sh ${{ matrix.cross }}

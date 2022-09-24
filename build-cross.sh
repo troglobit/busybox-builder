@@ -20,7 +20,7 @@ make_defconfig()
 	# Go backgorund
 	(
 	cd busybox-"$1" || exit $?
-	exec </dev/null >BUILD.log 2>&1
+	exec </dev/null 2>&1 | tee BUILD.log
 
 	make defconfig >/dev/null || {
 		make defconfig # no redirects, to see all messages in log
@@ -82,6 +82,7 @@ mkdir -p output
 for bb in busybox-*; do
 	test -d "$bb" || continue
 	test "$bb" = "busybox" && continue
+	ls -lrt "$bb"
 	test -x "$bb/busybox" || {
 		echo "Directory $bb has no 'busybox' executable, check BUILD.log"
 		continue
