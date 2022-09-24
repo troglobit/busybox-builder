@@ -39,6 +39,6 @@ jobs:
           tar xf ${ARCHIVE}
       - name: Build ${{ matrix.arch }}
         run: |
-          export PATH=$(pwd)/${TOOLCHAIN}/bin:$PATH
-          ls -l $(pwd)/${TOOLCHAIN}/bin
+          export PATH=$(pwd)/${{ matrix.cross }}cross/bin:$PATH
+          ls -l $(pwd)/${{ matrix.cross }}cross/bin
           ./build-cross.sh ${{ matrix.cross }}; cat busybox/BUILD.log
