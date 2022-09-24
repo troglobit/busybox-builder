@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       release:
-        description: 'Create release (false = already exists)?'
+        description: 'Create release?'
         required: false
         type: bool
         default: true
@@ -20,10 +20,10 @@ env:
 jobs:
   release:
     name: Create GitHub release
+    if: ${{ inputs.release }}
     runs-on: ubuntu-latest
     steps:
       - name: Create release
-        if: ${{ inputs.release }}
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
