@@ -10,7 +10,7 @@ on:
       release:
         description: 'Create release?'
         required: true
-        type: bool
+        type: boolean
         default: true
 
 env:
