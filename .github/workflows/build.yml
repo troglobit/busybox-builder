@@ -37,7 +37,8 @@ jobs:
           ARCHIVE=${TOOLCHAIN}.tgz
           wget ${MIRROR}/${VERSION}/${ARCHIVE}
           tar xf ${ARCHIVE}
-          export PATH=$(pwd)/${TOOLCHAIN}/bin:$PATH
       - name: Build ${{ matrix.arch }}
         run: |
+          export PATH=$(pwd)/${TOOLCHAIN}/bin:$PATH
+          ls -l $(pwd)/${TOOLCHAIN}/bin
           ./build-cross.sh ${{ matrix.cross }}; cat busybox/BUILD.log
