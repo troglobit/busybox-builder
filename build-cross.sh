@@ -91,4 +91,6 @@ for bb in busybox-*; do
 	arch="${arch%%-*}"
 	cp -v "$bb/busybox"   "output/busybox-$arch"
 	cp -v "$bb/BUILD.log" "output/busybox-$arch.log"
+	cd output/ || exit 1
+	sha256sum "busybox-$arch" > "busybox-${arch}.sha256"
 done
