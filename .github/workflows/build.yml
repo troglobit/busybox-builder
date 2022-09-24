@@ -21,9 +21,9 @@ jobs:
   release:
     name: Create GitHub release
     runs-on: ubuntu-latest
-    if: ${{ inputs.release }}
     steps:
       - name: Create release
+        if: ${{ inputs.release }}
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
