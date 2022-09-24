@@ -1,8 +1,9 @@
 #!/bin/sh
 # This script is based on build-cross.sh from BusyBox, see comment in
 # that file.  Like everything here it's released in the public domain.
-BB=$GITHUB_WORKSPACE/busybox
-OUT=$GITHUB_WORKSPACE/output
+set -x
+BB=busybox
+OUT=output
 
 make_defconfig()
 {
