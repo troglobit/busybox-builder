@@ -13,9 +13,8 @@ env:
   VERSION: 11-20211120
 
 jobs:
-  build1:
+  build:
     name: BusyBox v${{ inputs.tag }} ${{ matrix.cross }}cross
-    needs: release
     runs-on: ubuntu-latest
     strategy:
       matrix:
