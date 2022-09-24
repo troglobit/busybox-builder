@@ -69,6 +69,6 @@ jobs:
         uses: pyTooling/Actions/releaser@main
         with:
           tag: ${{ inputs.tag }}
-          rm: true
+          rm: false
           token: ${{ secrets.GITHUB_TOKEN }}
           files: output/*
