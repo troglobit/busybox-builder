@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'BusyBox tag to build'
+        description: 'BusyBox release tag to build'
         required: true
         type: string
       release:
         description: 'Create release?'
-        required: false
+        required: true
         type: bool
         default: true
 
@@ -20,8 +20,8 @@ env:
 jobs:
   release:
     name: Create GitHub release
-    if: ${{ inputs.release }}
     runs-on: ubuntu-latest
+    if: ${{ inputs.release }}
     steps:
       - name: Create release
         uses: actions/create-release@v1
