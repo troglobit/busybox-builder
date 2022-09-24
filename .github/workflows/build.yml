@@ -27,15 +27,47 @@ jobs:
             Please note, these builds are not sponsored by or affiliated with the BusyBox project.
           draft: false
           prerelease: false
-  build:
+  build1:
     name: BusyBox v${{ inputs.tag }} ${{ matrix.arch }}
     needs: release
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch: [x86_64, armv7m, powerpc]
+        arch: [i686, x86_64, powerpc]
       fail-fast: false
     container: muslcc/x86_64:${{ matrix.arch }}-linux-musl
+    steps:
+      - name: Check out Builder
+        uses: actions/checkout@v2
+      - name: Check out BusyBox
+        uses: actions/checkout@v2
+        with:
+          repository: mirror/busybox
+          ref: ${{ inputs.tag }}
+          path: busybox
+          clean: false
+      - name: Install dependencies
+        run: |
+          apk add make
+      - name: Build ${{ matrix.arch }}
+        run: |
+          ./build-docker.sh ${{ matrix.arch }}
+      - name: Uploading artifacts
+        uses: pyTooling/Actions/releaser@main
+        with:
+          tag: ${{ inputs.tag }}
+          rm: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: output/*
+  build2:
+    name: BusyBox v${{ inputs.tag }} ${{ matrix.arch }}
+    needs: release
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [armv5l, armv7m]
+      fail-fast: false
+    container: muslcc/x86_64:${{ matrix.arch }}-linux-musleabi
     steps:
       - name: Check out Builder
         uses: actions/checkout@v2
