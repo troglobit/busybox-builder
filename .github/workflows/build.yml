@@ -33,8 +33,10 @@ jobs:
           body: |
             Release Notes
             =============
-            Binaries for BusyBox v${{ inputs.tag }}.<br/>
-            Please note, these builds are not sponsored by or affiliated with the BusyBox project.
+            Static binaries of BusyBox v${{ inputs.tag }} built with musl libc.<br/><br/>
+            The .config is quite extensive and based on the bundled busybox_defconfig, with a set of
+            exceptions for musl https://wiki.musl-libc.org/building-busybox.html<br/><br/>
+            > **Note:** these builds are not sponsored by or affiliated with the BusyBox project.
           draft: false
           prerelease: false
 
@@ -65,6 +67,7 @@ jobs:
         run: |
           export PATH=$(pwd)/${{ matrix.cross }}cross/bin:$PATH
           ./build-cross.sh ${{ matrix.cross }}
+          cp busybox_defconfig output/
       - name: Uploading artifacts
         uses: pyTooling/Actions/releaser@main
         with:
