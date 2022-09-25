@@ -33,7 +33,7 @@ jobs:
           body: |
             Release Notes
             =============
-            Static binaries of BusyBox v${{ inputs.tag }} built with musl libc.<br/><br/>
+            Static binaries of BusyBox v${{ inputs.tag }} built with musl libc.<br/>
             The .config is quite extensive and based on the bundled busybox_defconfig, with a set of
             exceptions for musl https://wiki.musl-libc.org/building-busybox.html<br/><br/>
             > **Note:** these builds are not sponsored by or affiliated with the BusyBox project.
